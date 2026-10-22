@@ -1,0 +1,30 @@
+# Java
+*.class
+*.jar
+*.log
+hs_err_pid*
+
+# Build output
+bin/
+out/
+target/
+build/
+
+# IDE / editor
+.vscode/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+._*
+
+# Claude Code
+CLAUDE.md
+.claude/
