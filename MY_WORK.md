@@ -132,42 +132,42 @@
 
 ## Your Development Log
 
-### Entry 1 - [Date and Time]
-**What I did**:
+### Entry 1 - [October 26, 2026, 8:00 PM]
+**What I did**: Logged into GitHub, forked the project repository, and changed the assigned ID in the code.
 
-**Details**:
+**Details**: Successfully authenticated with GitHub and created a fork of the original repository. Cloned the forked repository locally, opened the project in Visual Studio, and updated the assigned student ID within the code files. Verified that the changes were saved correctly and prepared the repository for further development.
 
-**Challenges**:
+**Challenges**: Making sure the repository was connected correctly and the ID was changed in the correct file.
 
-**Solution**:
+**Solution**: Checked the project instructions and verified the changes before saving and committing the code.
 
-**Time spent**:
-
----
-
-### Entry 2 - [Date and Time]
-**What I did**:
-
-**Details**:
-
-**Challenges**:
-
-**Solution**:
-
-**Time spent**:
+**Time spent**: 30 minutes.
 
 ---
 
-### Entry 3 - [Date and Time]
-**What I did**:
+### Entry 2 - [October 29, 2026, 10:30 PM]
+**What I did**: Implemented the required concurrency feature and modified the synchronization mechanism using the One Lock Per Variable approach. Tested the program execution to ensure correct thread behavior and data consistency.
 
-**Details**:
+**Details**: Reviewed the existing code structure and identified shared variables accessed by multiple threads. Replaced the previous synchronization strategy with independent locks for each variable to reduce contention and improve parallel execution. Executed several test runs and monitored the output to verify that all updates were performed correctly.
 
-**Challenges**:
+**Challenges**: Initially, the program continued to show synchronization issues due to incorrect lock usage. It was also necessary to determine which variables should have separate locks and ensure that all critical sections were protected properly.
 
-**Solution**:
+**Solution**: Assigned a dedicated lock to each shared variable and updated the critical sections accordingly. Re-tested the application multiple times and verified that the race conditions were eliminated and the outputs became consistent.
 
-**Time spent**:
+**Time spent**: 3.5 hours.
+
+---
+
+### Entry 3 - [October 30, 2026, 7:38 PM]
+**What I did**: Completed the Reflection Part of the assignment by answering all reflection questions related to synchronization concepts, challenges faced during development, real-world applications, and lessons learned from the project.
+
+**Details**: Reviewed the completed implementation and reflected on my experience working with synchronization, locks, race conditions, and semaphores. Wrote detailed answers based on the challenges encountered during the project and the solutions used to overcome them.
+
+**Challenges**: It was difficult to summarize the technical concepts clearly while connecting them to my actual experience in the project. I also needed to explain my reasoning and learning process in my own words.
+
+**Solution**: I revisited the project code, reviewed the synchronization mechanisms that were implemented, and reflected on the debugging and testing process. This helped me provide accurate and meaningful answers to all reflection questions.
+
+**Time spent**: 1 hour.
 
 ---
 
@@ -240,7 +240,7 @@
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+Through this assignment, I learned that synchronization is necessary when multiple threads access and modify the same shared data. Without proper synchronization, race conditions can occur because different threads may read and update a variable at the same time, leading to incorrect results. I also learned how critical sections should be protected using ReentrantLock to ensure mutual exclusion and prevent conflicts between threads. Using try/finally was important because it guarantees that a lock is released even if an exception occurs. In addition, I understood how a counting semaphore can limit the number of threads that are allowed to access a resource concurrently. What surprised me most was how the starter program produced inconsistent output due to thread interference, even though the code looked correct at first glance.
 
 ## Question 2: What was the most challenging part of this assignment?
 
@@ -248,7 +248,7 @@
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+The most challenging part of this assignment was choosing the appropriate lock granularity. At first, I was unsure whether to use a single lock for the entire shared state or separate locks for each variable. After analyzing the code and discussing the independence of the shared variables, I decided to use the one-lock-per-variable approach. The difficult part was making sure that every critical section used the correct lock without introducing new synchronization problems. I tested the program several times and carefully checked the outputs to verify that race conditions were removed. This experience helped me understand how lock granularity affects both correctness and performance in concurrent programs.
 
 ## Question 3: How did you overcome the challenges you faced?
 
@@ -256,7 +256,7 @@
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+I overcame the challenges by working on the project step by step instead of changing many things at once. I re-read the README several times to make sure I understood the requirements before modifying the code. When I was unsure about the synchronization design, I compared different approaches and analyzed whether the shared variables were independent or not. I also ran the program repeatedly after each small change and checked the output to see if the behavior was correct. Whenever I encountered a problem, I reviewed the code carefully and asked for help to better understand the issue. This process helped me identify mistakes early and gradually reach a stable and correct solution.
 
 ## Question 4: Where can synchronization concepts be applied in real-world applications?
 
@@ -264,19 +264,25 @@
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+Synchronization concepts are widely used in real-world applications where multiple users or processes access shared resources at the same time. For example, in an online ticket booking system, synchronization prevents two users from reserving the same seat simultaneously. In banking applications, locks are used to protect account balances during deposits and withdrawals so that money is updated correctly. Databases also use synchronization techniques to maintain data consistency when many transactions occur at once. This assignment helped me understand how locks and critical sections protect shared data from race conditions. The use of semaphores can also be applied to limit access to a resource, similar to controlling how many users can use a service at the same time.
 
 ### Optional: What would you like to learn more about?
 
 [Any topics related to synchronization or operating systems that you're curious about?]
 
+I would like to learn more about deadlocks and how operating systems detect and prevent them. I am also interested in learning about advanced synchronization techniques that are used in large-scale applications. Understanding how modern operating systems manage threads and CPU scheduling would help me deepen my knowledge of concurrent programming
+
 ### Optional: How confident do you feel about synchronization concepts now?
 
 [Beginner / Intermediate / Confident. What do you understand well? What needs more practice?]
 
+I would describe my confidence level as intermediate. I now understand race conditions, critical sections, locks, and semaphores much better than before starting the assignment. I am comfortable applying basic synchronization techniques, but I still need more practice with choosing the best synchronization strategy and debugging complex multithreaded programs.
+
 ### Optional: Feedback on the assignment
 
 [Any comments? Was it helpful? Too easy or hard? Suggestions?]
+
+The assignment was challenging but very helpful for understanding synchronization concepts in a practical way. Implementing the features and testing the program helped me connect the theoretical concepts from class with real code. The project required careful thinking and debugging, which improved my problem-solving skills. Overall, I found the assignment valuable and educational.
 
 ---
 
