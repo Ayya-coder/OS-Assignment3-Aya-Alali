@@ -336,12 +336,17 @@ I protected the shared statistics variables (contextSwitchCount, completedProces
 | Critical section (variable / method) | Lock used | Why it needs protection |
 |---|---|---|
 | [e.g., `ReadyQueue.poll()`] | [lock name] | [reason] |
-
+|---|---|---|
 | contextSwitchCount update | contextSwitchLock | Prevent lost updates when multiple CPUs increment the counter simultaneously |
+|---|---|---|
 | completedProcesses update | completedProcessesLock | Ensure completed process count remains accurate |
+|---|---|---|
 | totalServiceTime update | totalServiceTimeLock | Prevent concurrent writes from corrupting the accumulated time |
+|---|---|---|
 | ReadyQueue.offer() | readyQueueLock | Prevent concurrent modifications of the queue structure |
+|---|---|---|
 | ReadyQueue.poll() | readyQueueLock | Ensure only one thread removes a process at a time |
+|---|---|---|
 
 ## Question 3: Busy Waiting vs Semaphore
 
