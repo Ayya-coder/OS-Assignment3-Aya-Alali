@@ -171,16 +171,16 @@
 
 ---
 
-### Entry 4 - [Date and Time]
-**What I did**:
+### Entry 4 - [October 31, 2026, 5:44 PM]
+**What I did**: Completed the synchronization and concurrency analysis questions for the CPU scheduling project.
 
-**Details**:
+**Details**: Tested the original starter code and compared the verification results with the corrected version. I identified lost updates caused by race conditions, documented the critical sections and lock granularity decisions, and explained how semaphores were used to synchronize access to the ready queue. I also analyzed the Producer-Consumer model and deadlock scenarios.
 
-**Challenges**:
+**Challenges**: Understanding how a lost update occurs between multiple CPUs and explaining the behavior of semaphores and deadlocks in a clear way. It was also challenging to determine the correct lock granularity and justify using separate locks for independent shared variables.
 
-**Solution**:
+**Solution**: Used one lock per independent shared statistic and a separate lock for the ready queue to reduce contention. Replaced busy waiting with semaphores to eliminate unnecessary CPU usage and followed proper synchronization ordering to avoid deadlocks. Verified the final implementation by ensuring all expected and observed values matched.
 
-**Time spent**:
+**Time spent**: 2 hours.
 
 ---
 
@@ -304,20 +304,24 @@ The assignment was challenging but very helpful for understanding synchronizatio
 
 **Your Answer:** *(3-5 sentences)*
 
-[Write your answer here.]
+The wrong value in my original run was the Context switches count, which was expected to be 30 but observed as 29. A lost update can occur when CPU-1 reads a shared variable value (for example 12) and is paused before writing the incremented value. While CPU-1 is paused, CPU-2 reads the same value 12 and writes 13. When CPU-1 resumes, it also writes 13, causing one increment to be lost because both CPUs updated the same old value. This bug can happen on a real machine even without RaceWindow because thread scheduling and context switches are unpredictable, and it is difficult to detect since the program may sometimes produce correct results and sometimes fail.
 
 Verification block of the **original starter**:
-```
-[Paste the verification block (or the exception/watchdog message) of the starter here]
-```
+
+<img width="671" height="215" alt="Output befor any Change" src="https://github.com/user-attachments/assets/62d18291-ff69-4a32-8c71-f24250aa9be9" />
+
+
 
 Verification block of **my final version**:
-```
-[Paste the verification block of your final version here (all lines ✔)]
-```
+
+<img width="599" height="150" alt="Output after Feature 3" src="https://github.com/user-attachments/assets/41add7bf-e8ea-443d-9e84-c01814996ed6" />
+
+
 
 **Explanation of the timeline:**
 [Explain the lost update step by step.]
+
+CPU-1 reads contextSwitchCount = 28 but pauses before writing. CPU-2 then reads the same value (28), increments it, and writes 29. When CPU-1 resumes, it also increments its old copy and writes 29. One increment is therefore lost, so the final value becomes 29 instead of the expected 30. This race condition can happen on real machines because thread scheduling is unpredictable, making the bug difficult to reproduce consistently.
 
 ## Question 2: Critical Sections and Lock Granularity
 
@@ -327,12 +331,17 @@ Verification block of **my final version**:
 
 **Your Answer:** *(3-5 sentences)*
 
-[Write your answer here.]
+I protected the shared statistics variables (contextSwitchCount, completedProcesses, and totalServiceTime) using separate locks, with one lock per variable. I also used a different lock for ready queue operations because queue access is independent from statistics updates. This lock granularity reduces contention since a thread updating one statistic does not block updates to other statistics. The separate queue lock guarantees mutual exclusion when adding or removing processes from the ready queue, while keeping the scheduler independent from statistics operations. Progress is preserved because threads eventually acquire the required lock, but bounded waiting is not strictly guaranteed since the default ReentrantLock is non-fair and may allow a thread to acquire the lock multiple times before others.
 
 | Critical section (variable / method) | Lock used | Why it needs protection |
 |---|---|---|
 | [e.g., `ReadyQueue.poll()`] | [lock name] | [reason] |
-| [...] | [...] | [...] |
+
+| contextSwitchCount update | contextSwitchLock | Prevent lost updates when multiple CPUs increment the counter simultaneously |
+| completedProcesses update | completedProcessesLock | Ensure completed process count remains accurate |
+| totalServiceTime update | totalServiceTimeLock | Prevent concurrent writes from corrupting the accumulated time |
+| ReadyQueue.offer() | readyQueueLock | Prevent concurrent modifications of the queue structure |
+| ReadyQueue.poll() | readyQueueLock | Ensure only one thread removes a process at a time |
 
 ## Question 3: Busy Waiting vs Semaphore
 
@@ -342,7 +351,8 @@ Verification block of **my final version**:
 
 **Your Answer:** *(3-5 sentences)*
 
-[Write your answer here.]
+In the starter version, the CPUs used busy waiting by repeatedly checking the ready queue when it was empty, wasting CPU time and producing 1099 busy-waiting polls. In my final version, I replaced busy waiting with a semaphore so CPUs block in acquire() until a process becomes available. The semaphore value represents the number of processes available in the ready queue. Its initial value is 0 because the queue is initially empty, and after the numProcesses initial add() calls, its value becomes equal to the number of added processes. The last CPU calls release(totalCPUs) to wake up any CPUs blocked in acquire() after all work is finished; otherwise, some CPUs could remain blocked forever and the simulation would never terminate correctly.
+Using a semaphore improves efficiency because blocked CPUs do not consume processor time while waiting, unlike busy waiting where CPUs continuously poll the queue even when no work is available.
 
 ## Question 4: Classical Problems and Deadlock
 
@@ -355,22 +365,30 @@ Verification block of **my final version**:
 **Classical problem and roles**:
 [Name the problem; who is the producer, who is the consumer?]
 
+The problem is the Producer-Consumer (Bounded Buffer) problem. The ready queue acts as the shared buffer between producers and consumers. New process arrivals act as producers because they add processes to the ready queue, while CPUs act as consumers because they remove processes from the queue and execute them. CPUs can also temporarily play the producer role when they re-enqueue a process that has not finished its execution.
+
 **Semaphores for a bounded queue (name and initial value)**:
 [Name the three semaphores and their initial values.]
+
+empty = K  (number of free slots in the queue)
+full = 0   (number of occupied slots in the queue)
+mutex = 1  (provides mutual exclusion when accessing the queue)
 
 **Deadlock scenario and prevention**:
 [Describe the scenario and the necessary condition you would break.]
 
+A deadlock can occur if a producer acquires the mutex lock first and then waits on the empty semaphore when the queue is full. The producer holds the mutex while waiting, so a consumer cannot acquire the mutex to remove an item and free space in the queue. As a result, both threads wait forever. To prevent this, threads should wait on the semaphore before acquiring the mutex, following the standard producer-consumer order. This breaks the hold-and-wait condition, one of the four necessary conditions for deadlock.
+
 ## Summary
 
 **Key concepts I understood through these questions:**
-1.
-2.
-3.
+1.How race conditions occur when multiple threads access shared variables simultaneously, leading to lost updates and inconsistent results.
+2.How locks and critical sections provide mutual exclusion, and how using one lock per independent variable can reduce contention and improve concurrency.
+3.The difference between busy waiting and blocking synchronization using semaphores, as well as how the Producer-Consumer pattern and proper lock ordering help prevent deadlocks.
 
 **Concepts I need to study more:**
-1.
-2.
+1.Deadlock prevention strategies and the four necessary conditions for deadlock.
+2.Fairness, bounded waiting, and advanced synchronization techniques using semaphores and locks.
 
 ---
 
