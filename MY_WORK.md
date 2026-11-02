@@ -184,29 +184,29 @@
 
 ---
 
-### Entry 5 - [Date and Time]
-**What I did**:
+### Entry 5 - [November 2, 2026, 11:50 AM]
+**What I did**: Recorded and prepared the project demonstration video according to the assignment requirements.
 
-**Details**:
+**Details**: I carefully reviewed all the required points that needed to be covered in the video and tried to explain them clearly within the allowed three-minute duration. I organized the content to ensure that all important requirements were mentioned while demonstrating the project features.
 
-**Challenges**:
+**Challenges**: The main challenge was the limited time range. It was difficult to explain all the required points, demonstrate the project properly, and stay within the three-minute limit.
 
-**Solution**:
+**Solution**: I planned the explanation in advance, focused on the most important requirements, and practiced the presentation to make it more concise and clear.
 
-**Time spent**:
+**Time spent**: 30 minutes.
 
 ---
 
-### Entry 6 - [Optional - Date and Time]
-**What I did**:
+### Entry 6 - [November 2, 2026, 4:00 PM]
+**What I did**: Submitted the project video link through Blackboard.
 
-**Details**:
+**Details**: I uploaded the final video, verified that the link was accessible, and completed the submission process through Blackboard before the deadline.
 
-**Challenges**:
+**Challenges**: No challenges were encountered during this task.
 
-**Solution**:
+**Solution**: N/A
 
-**Time spent**:
+**Time spent**: 10  minutes.
 
 ---
 
@@ -214,13 +214,13 @@
 
 > 💡 **TIP:** Fill this in **last**, after all entries are written.
 
-**Total time spent on assignment**: [X hours]
+**Total time spent on assignment**: [8 hours]
 
-**Most challenging part**:
+**Most challenging part**: Answering the technical questions, as they required careful thinking and a solid understanding of the project implementation and concepts.
 
-**Most interesting learning**:
+**Most interesting learning**: Working with the code. I enjoyed seeing how the output changed after each new addition or modification, which helped me better understand the effect of the implemented features.
 
-**What I would do differently next time**:
+**What I would do differently next time**: I would start preparing for the technical questions earlier and practice explaining the project more concisely to improve my confidence during the final presentation.
 
 ---
 
